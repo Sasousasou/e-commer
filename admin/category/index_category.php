@@ -1,6 +1,13 @@
 <?php
 include '../../config/db_conn.php';
-include "../../src/php/navbar.php";
+
+$sql = "SELECT * FROM category";
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    echo "Erreur SQL : " . mysqli_error($conn);
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -8,57 +15,49 @@ include "../../src/php/navbar.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Utilisateurs</title>
-    
+    <title>Liste des Catégories</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
+    <!-- Navbar -->
+    <?php include "../../src/php/navbar.php"; ?>
+
     <main class="container my-5">
-        <h1 class="text-center mb-4">Liste des Utilisateurs</h1>
+        <h1 class="text-center mb-4">Liste des Catégories</h1>
+        <a href="add_category.php" class="btn btn-success mb-3">Ajouter une catégorie</a>
+        
         <table class="table table-bordered table-striped">
-            <thead class="table-dark">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Email</th>
-                    <th>État</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                
-                $sql = "SELECT * FROM users";
-                $result = mysqli_query($conn, $sql);
-
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $etat = $row['etat'] == 1 ? 'Actif' : 'Inactif';
-                        $toggleAction = $row['etat'] == 1 ? 'Désactiver' : 'Activer';
-                        $toggleValue = $row['etat'] == 1 ? 0 : 1;
-                        
                         echo "<tr>
                                 <td>{$row['id']}</td>
-                                <td>{$row['nom']}</td>
-                                <td>{$row['prenom']}</td>
-                                <td>{$row['email']}</td>
-                                <td>$etat</td>
+                                <td>{$row['name']}</td>
                                 <td>
-                                    <a class='btn btn-warning btn-sm' href='toggle_user.php?id={$row['id']}&etat=$toggleValue'>$toggleAction</a>
+                                    <a href='edit_category.php?id={$row['id']}' class='btn btn-warning btn-sm'>Modifier</a>
+                                    <a href='delete_category.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer cette catégorie ?\");'>Supprimer</a>
                                 </td>
                             </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='6' class='text-center'>Aucun utilisateur trouvé.</td></tr>";
+                    echo "<tr><td colspan='3' class='text-center'>Aucune catégorie trouvée.</td></tr>";
                 }
+                mysqli_close($conn);
                 ?>
             </tbody>
         </table>
     </main>
 
-    <!--  footer -->
+    <!-- Footer -->
     <?php include "../../src/php/footer.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

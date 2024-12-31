@@ -3,10 +3,10 @@ session_start();
 include '../../config/db_conn.php';
 
 
-// if (isset($_SESSION['user_id'])) {
-//     header("Location: ../../index.php");
-//     exit();
-// }
+if (isset($_SESSION['user_id'])) {
+    header("Location: ../../index.php");
+    exit();
+}
 
 $error_msg = "";
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                 if ($user['role'] == 1) {
-                    header("Location: ../../admin/index");
+                    header("Location: ../../admin/admin/index.php");
                 } else {
                     header("Location: ../../users/index");
                 }
