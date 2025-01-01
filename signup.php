@@ -33,6 +33,10 @@
             </div>
             <button type="submit" class="btn btn-primary">S'inscrire</button>
         </form>
+
+        <div class="mt-3 text-center">
+            <p>Vous avez déjà un compte ? <a href="login.php" class="text-primary">Connectez-vous ici</a>.</p>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

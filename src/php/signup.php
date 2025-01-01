@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $insert_sql = "INSERT INTO users (nom, prenom, email, password, role, etat) VALUES ('$nom', '$prenom', '$email', '$hashed_password', 2, 1)";
         if (mysqli_query($conn, $insert_sql)) {
             $_SESSION['success_msg'] = "Inscription réussie ! Connectez-vous.";
-            header("Location: ../../login.html");
+            header("Location: ../../login.php");
             exit();
         } else {
             $error_msg = "Erreur lors de l'inscription : " . mysqli_error($conn);

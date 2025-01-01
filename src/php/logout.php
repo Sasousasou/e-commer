@@ -6,10 +6,10 @@ if (isset($_SESSION['user_id'])) {
     session_unset();
     session_destroy();
 
-    header("Location: ../../login.html");
+    header("Location: ../../login.php");
     exit();
 } else {
-    header("Location: ../../login.html");
+    header("Location: ../../login.php");
     exit();
 }
 ?>
