@@ -1,6 +1,6 @@
-<?php 
-include '../../config/db_conn.php'; 
-include '../../src/php/navbar.php'; 
+<?php
+include '../../config/db_conn.php';
+include '../../src/php/navbar.php';
 
 $user_count_query = "SELECT COUNT(*) as total_users FROM users";
 $user_count_result = mysqli_query($conn, $user_count_query);
@@ -22,12 +22,14 @@ $category_count = mysqli_fetch_assoc($category_count_result)['total_categories']
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Administrateur</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="container mt-5">
@@ -77,10 +79,11 @@ $category_count = mysqli_fetch_assoc($category_count_result)['total_categories']
         </div>
     </div>
 
-    <?php include "../../src/php/footer.php"; ?> 
+    <?php include "../../src/php/footer.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 
 <?php

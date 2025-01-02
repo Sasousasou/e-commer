@@ -2,12 +2,21 @@
 session_start();
 include '../config/db_conn.php';
 
-$sqlCategories = "SELECT * FROM category LIMIT 6";
-$resultCategories = $conn->query($sqlCategories);
+
+if (isset($_GET['category_id'])) {
+    $categoryId = intval($_GET['category_id']);
 
 
-$sqlProducts = "SELECT * FROM products WHERE quantity > 0 ORDER BY id DESC LIMIT 10";
-$resultProducts = $conn->query($sqlProducts);
+    $sqlProducts = "SELECT * FROM products WHERE category_id = $categoryId AND quantity > 0";
+    $resultProducts = $conn->query($sqlProducts);
+
+
+    $sqlCategoryName = "SELECT name FROM category WHERE id = $categoryId";
+    $resultCategoryName = $conn->query($sqlCategoryName);
+    $categoryName = $resultCategoryName->fetch_assoc()['name'];
+} else {
+    die("ID de catégorie manquant.");
+}
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +25,7 @@ $resultProducts = $conn->query($sqlProducts);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - MonApp</title>
+    <title>Produits de la catégorie - MonApp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
         function calculateTotal(productId) {
@@ -30,6 +39,7 @@ $resultProducts = $conn->query($sqlProducts);
 
 <body>
     <?php include "../src/php/user_navbar.php"; ?>
+
     <?php if (isset($_GET['msg'])): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <?= htmlspecialchars($_GET['msg']) ?>
@@ -38,35 +48,13 @@ $resultProducts = $conn->query($sqlProducts);
     <?php endif; ?>
 
     <div class="container mt-5">
-        <h1 class="text-center">Bienvenue sur MonApp</h1>
+        <h1 class="text-center">Produits de la catégorie : <?= htmlspecialchars($categoryName) ?></h1>
 
-
-        <h2 class="mt-4">Catégories populaires</h2>
-        <?php if ($resultCategories->num_rows > 0): ?>
-            <div class="row">
-                <?php while ($category = $resultCategories->fetch_assoc()): ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5 class="card-title"><?= htmlspecialchars($category['name']) ?></h5>
-                                <a href="category_page.php?id=<?= $category['id'] ?>" class="btn btn-primary">Voir les produits</a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
-            </div>
-        <?php else: ?>
-            <p>Aucune catégorie disponible.</p>
-        <?php endif; ?>
-
-
-        <h3 class="mt-4">Les 10 derniers produits disponibles</h3>
         <?php if ($resultProducts->num_rows > 0): ?>
-            <div class="row">
+            <div class="row mt-4">
                 <?php while ($product = $resultProducts->fetch_assoc()): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card">
-
                             <?php if (!empty($product['image']) && file_exists("../" . $product['image'])): ?>
                                 <img src="../<?= $product['image'] ?>" class="card-img-top" alt="Image du produit" style="height: 200px; object-fit: cover;">
                             <?php else: ?>
@@ -139,7 +127,7 @@ $resultProducts = $conn->query($sqlProducts);
                 <?php endwhile; ?>
             </div>
         <?php else: ?>
-            <p>Aucun produit disponible.</p>
+            <p>Aucun produit disponible dans cette catégorie.</p>
         <?php endif; ?>
     </div>
 

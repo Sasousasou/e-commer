@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 01 jan. 2025 à 00:45
+-- Généré le : jeu. 02 jan. 2025 à 06:01
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.0.30
 
@@ -37,8 +37,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'salke'),
-(3, 'test');
+(5, 'test');
 
 -- --------------------------------------------------------
 
@@ -51,7 +50,10 @@ CREATE TABLE `orders` (
   `user_id` int(11) DEFAULT NULL,
   `total` decimal(10,2) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
-  `etat` tinyint(1) DEFAULT NULL COMMENT '1: accepté, 2: refusé, 3: annulé, 4: passé',
+  `etat` tinyint(1) DEFAULT NULL COMMENT '1: en attente, 2: annulé, 3: expédiée',
+  `code` varchar(255) NOT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `type` enum('Bankily','Masrvi','Sedade','Bimbank','Click','Amanty') NOT NULL,
   `product_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -59,8 +61,8 @@ CREATE TABLE `orders` (
 -- Déchargement des données de la table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `total`, `date`, `etat`, `product_id`) VALUES
-(3, 1, 1.00, '2024-12-31 22:05:20', 1, 1);
+INSERT INTO `orders` (`id`, `user_id`, `total`, `date`, `etat`, `code`, `img`, `type`, `product_id`) VALUES
+(16, 3, 100.00, '2025-01-02 05:01:12', 1, '12345667', 'uploads/payments/thumb-1920-1038454.jpg', 'Bankily', 12);
 
 -- --------------------------------------------------------
 
@@ -83,7 +85,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `image`, `quantity`, `category_id`) VALUES
-(1, 'test1', 'dkj.flgslz;ih/ldkc,mxbn ', 1000.00, '', 231, 1);
+(11, 'test', 'test1', 20.00, 'uploads/products/Neon-Genesis-Evangelion-Wallpaper-4K-32548.jpg', 20, 5),
+(12, 'test_test', '???', 100.00, 'uploads/products/photo_2024-11-27_12-10-07.jpg', 11, 5);
 
 -- --------------------------------------------------------
 
@@ -106,8 +109,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `role`, `etat`, `nom`, `prenom`) VALUES
-(1, '23025@supnum.mr', '$2y$10$IctJrJ3VzGLKp/m0ZAZvfesQvGoVUaRILPhGk0qOwoCcPdoFXZa1C', 1, 1, 'zeiny', 'cheikh'),
-(3, '23100@supnum.mr', '$2y$10$uC/m.OJIrZQHeY5WrGwyje2QdmCv.4.kxDcu.yyThOWK9E2gNtVa6', 2, 1, 'azize', 'bchir');
+(1, '23025@supnum.mr', '$2y$10$rd2tHBU88/TBvXXObUU9o.BHwT.KXUd2lvv/h0xBMiK5JgjRLFlGK', 1, 1, 'zeiny', 'cheikh'),
+(3, '23100@supnum.mr', '$2y$10$tGSiS2wg/qXZ2pa8wUARh.rSdKL4BNJo3muZ.AfHOK7BBKsPwXZ5y', 2, 1, 'azize', 'bchir');
 
 --
 -- Index pour les tables déchargées
@@ -149,25 +152,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Contraintes pour les tables déchargées

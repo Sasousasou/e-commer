@@ -10,4 +10,3 @@ if (mysqli_query($conn, $sql)) {
 } else {
     echo "Erreur : " . mysqli_error($conn);
 }
-?>

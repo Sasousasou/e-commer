@@ -24,15 +24,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier une Catégorie</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
+
     <?php include "../../src/php/navbar.php"; ?>
 
     <main class="container my-5">
@@ -47,9 +49,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </main>
 
-    <!-- Footer -->
+
     <?php include "../../src/php/footer.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

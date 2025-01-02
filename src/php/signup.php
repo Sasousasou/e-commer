@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $prenom = mysqli_real_escape_string($conn, $_POST['prenom']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT); 
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     $sql = "SELECT id FROM users WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
@@ -26,4 +26,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-?>

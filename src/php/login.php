@@ -3,10 +3,6 @@ session_start();
 include '../../config/db_conn.php';
 
 
-if (isset($_SESSION['user_id'])) {
-    header("Location: ../../index.php");
-    exit();
-}
 
 $error_msg = "";
 
@@ -50,4 +46,3 @@ if (!empty($error_msg)) {
     header("Location: ../../login.php");
     exit();
 }
-?>

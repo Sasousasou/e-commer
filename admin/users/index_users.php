@@ -5,19 +5,21 @@ include "../../src/php/navbar.php";
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Utilisateurs</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="d-flex flex-column min-vh-100">
 
     <main class="container my-5">
         <h1 class="text-center mb-4">Liste des Utilisateurs</h1>
         <table class="table table-bordered table-striped">
-            <thead class="table-dark">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
@@ -29,7 +31,7 @@ include "../../src/php/navbar.php";
             </thead>
             <tbody>
                 <?php
-                
+
                 $sql = "SELECT * FROM users";
                 $result = mysqli_query($conn, $sql);
 
@@ -38,7 +40,7 @@ include "../../src/php/navbar.php";
                         $etat = $row['etat'] == 1 ? 'Actif' : 'Inactif';
                         $toggleAction = $row['etat'] == 1 ? 'Désactiver' : 'Activer';
                         $toggleValue = $row['etat'] == 1 ? 0 : 1;
-                        
+
                         echo "<tr>
                                 <td>{$row['id']}</td>
                                 <td>{$row['nom']}</td>
@@ -63,4 +65,5 @@ include "../../src/php/navbar.php";
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

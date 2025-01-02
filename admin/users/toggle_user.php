@@ -18,4 +18,3 @@ if (isset($_GET['id']) && isset($_GET['etat'])) {
     header("Location: index_users.php?msg=Requête invalide");
     exit();
 }
-?>
